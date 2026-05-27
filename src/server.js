@@ -10,7 +10,15 @@ import settingsRoutes from './routes/settings.js';
 import lookupsRoutes from './routes/lookups.js';
 
 const app = express();
-app.use(cors());
+const allowedOrigins = process.env.CORS_ORIGIN?.split(',')
+  .map((s) => s.trim())
+  .filter(Boolean);
+app.use(
+  cors({
+    origin: allowedOrigins?.length ? allowedOrigins : true,
+    credentials: true,
+  }),
+);
 app.use(express.json({ limit: '10mb' }));
 
 app.get('/health', (_req, res) => res.json({ ok: true, ts: Date.now() }));
@@ -30,4 +38,6 @@ app.use((err, _req, res, _next) => {
 });
 
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => console.log(`apphr-backend on http://localhost:${PORT}`));
+app.listen(PORT, () =>
+  console.log(`apphr-backend on http://localhost:${PORT}`),
+);
