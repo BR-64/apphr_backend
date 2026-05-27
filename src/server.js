@@ -23,14 +23,14 @@ app.use(express.json({ limit: '10mb' }));
 
 app.get('/health', (_req, res) => res.json({ ok: true, ts: Date.now() }));
 
-app.use('/api/auth', authRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/admins', adminRoutes);
-app.use('/api/requests', requestRoutes);
-app.use('/api/entitlements', entitlementRoutes);
-app.use('/api/checkins', checkinRoutes);
-app.use('/api/settings', settingsRoutes);
-app.use('/api/lookups', lookupsRoutes);
+app.use('/auth', authRoutes);
+app.use('/users', userRoutes);
+app.use('/admins', adminRoutes);
+app.use('/requests', requestRoutes);
+app.use('/entitlements', entitlementRoutes);
+app.use('/checkins', checkinRoutes);
+app.use('/settings', settingsRoutes);
+app.use('/lookups', lookupsRoutes);
 
 app.use((err, _req, res, _next) => {
   console.error(err);
